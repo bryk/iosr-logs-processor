@@ -4,7 +4,7 @@ package pl.agh.edu.iosr.logs.generator;
  * Hello world!
  *
  */
-public class App 
+public class Generator 
 {
     public static void main( String[] args )
     {
