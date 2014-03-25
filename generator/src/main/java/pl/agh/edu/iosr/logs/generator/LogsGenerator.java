@@ -8,17 +8,21 @@ import org.apache.log4j.Logger;
 public class LogsGenerator {
 	private Logger logger = Logger.getLogger("artificialLogger");
 
-	public LogsGenerator() {
+	private LogFactory logFactory;
+
+	public LogsGenerator(LogFactory logFactory) {
+		this.logFactory = logFactory;
 	}
 
 	public void startLogging() {
-		while (true) {
+		Log log = logFactory.createLog();
+		while (log != null) {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				throw new RuntimeException(e);
 			}
-			logger.info("Sample log");
+			log.doLog(logger);
 		}
 	}
 }
