@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
  * Indefinitely generates log4j logs.
  */
 public class LogsGenerator {
-	private Logger logger = Logger.getLogger(this.getClass());
+	private Logger logger;
 
 	private LogFactory logFactory;
 
@@ -15,6 +15,7 @@ public class LogsGenerator {
 	public LogsGenerator(double logsPerSecond, LogFactory logFactory) {
 		this.logFactory = logFactory;
 		this.logsPerSecond = logsPerSecond;
+		this.logger = Logger.getLogger(this.getClass());
 	}
 
 	public void startLogging() {

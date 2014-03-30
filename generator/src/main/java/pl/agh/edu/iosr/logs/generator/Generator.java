@@ -2,13 +2,34 @@ package pl.agh.edu.iosr.logs.generator;
 
 import java.io.File;
 
+import org.apache.log4j.Level;
+
 /**
  * Program generating random logs with various levels.
  */
 public class Generator {
 	public static void main(String[] args) {
-		LogFactory logFactory = LogFactoryProvider.createLogFactory(new File("shakespeare.in"));
-		LogsGenerator logsGenerator = new LogsGenerator(10.0, logFactory);
-		logsGenerator.startLogging();
+		Generator generator = new Generator();
+		generator.start();
+	}
+
+	private void start() {
+		runLogger(Level.INFO, 10.0);
+		runLogger(Level.WARN, 3.2);
+		runLogger(Level.DEBUG, 2.0);
+		runLogger(Level.ERROR, 0.134);
+	}
+
+	private void runLogger(Level level, double logsPerSecond) {
+		LogFactory logFactory = LogFactoryProvider.createLogFactory(level, new File("shakespeare.in"));
+		final LogsGenerator logsGenerator = new LogsGenerator(logsPerSecond, logFactory);
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				logsGenerator.startLogging();
+			}
+		});
+
+		thread.start();
 	}
 }

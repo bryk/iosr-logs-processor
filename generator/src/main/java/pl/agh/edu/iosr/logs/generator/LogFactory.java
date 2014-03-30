@@ -23,4 +23,8 @@ public class LogFactory {
 	public Log createLog() {
 		return new Log(level, messages.get(random.nextInt(messages.size())));
 	}
+
+	public Level getLevel() {
+		return level;
+	}
 }
