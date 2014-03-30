@@ -21,7 +21,7 @@ public class Generator {
 	}
 
 	private void runLogger(Level level, double logsPerSecond) {
-		LogFactory logFactory = LogFactoryProvider.createLogFactory(level, new File("shakespeare.in"));
+		LogFactory logFactory = LogFactoryProvider.createLogFactory(level, new File("romeoandjuliet.txt"));
 		final LogsGenerator logsGenerator = new LogsGenerator(logsPerSecond, logFactory);
 		Thread thread = new Thread(new Runnable() {
 			@Override
