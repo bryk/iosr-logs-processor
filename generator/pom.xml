@@ -50,6 +50,11 @@
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
+					<archive>
+						<manifest>
+							<mainClass>pl.agh.edu.iosr.logs.generator.Generator</mainClass>
+						</manifest>
+					</archive>
 				</configuration>
 				<executions>
 					<execution>

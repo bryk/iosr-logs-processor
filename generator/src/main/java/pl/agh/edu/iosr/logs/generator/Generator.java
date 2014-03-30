@@ -1,6 +1,6 @@
 package pl.agh.edu.iosr.logs.generator;
 
-import java.io.File;
+import java.io.InputStream;
 
 import org.apache.log4j.Level;
 
@@ -21,7 +21,8 @@ public class Generator {
 	}
 
 	private void runLogger(Level level, double logsPerSecond) {
-		LogFactory logFactory = LogFactoryProvider.createLogFactory(level, new File("romeoandjuliet.txt"));
+		InputStream messagesStream = this.getClass().getResourceAsStream("/romeoandjuliet.txt");
+		LogFactory logFactory = LogFactoryProvider.createLogFactory(level, messagesStream);
 		final LogsGenerator logsGenerator = new LogsGenerator(logsPerSecond, logFactory);
 		Thread thread = new Thread(new Runnable() {
 			@Override
