@@ -16,13 +16,14 @@ public class HiveJdbcClient {
 			throw new RuntimeException(e);
 		}
 
-		Connection con = DriverManager.getConnection("jdbc:hive2://localhost:10000/default", "", "");
+		Connection con = DriverManager.getConnection("jdbc:hive2://localhost.localdomain:10000/default", "", "");
 		Statement stmt = con.createStatement();
 		String tableName = "testHiveDriverTable";
-		stmt.executeQuery("drop table " + tableName);
-		ResultSet res = stmt.executeQuery("create table " + tableName + " (key int, value string)");
+		stmt.execute("drop table " + tableName);
+		ResultSet res = null;
+		stmt.execute("create table " + tableName + " (key int, value string)");
 		// show tables
-		String sql = "show tables '" + tableName + "'";
+		String sql = "show tables";
 		System.out.println("Running: " + sql);
 		res = stmt.executeQuery(sql);
 		if (res.next()) {

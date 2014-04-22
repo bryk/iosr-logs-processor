@@ -12,7 +12,18 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<hive.version>0.10.0-cdh4.4.0</hive.version>
+
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>cloudera</id>
+			<url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
+		</repository>
+	</repositories>
+
+
 
 	<dependencies>
 		<dependency>
@@ -39,22 +50,22 @@
 		<dependency>
 			<groupId>org.apache.hive</groupId>
 			<artifactId>hive-jdbc</artifactId>
-			<version>0.12.0</version>
+			<version>${hive.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.hive</groupId>
 			<artifactId>hive-exec</artifactId>
-			<version>0.12.0</version>
+			<version>${hive.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.hive</groupId>
 			<artifactId>hive-metastore</artifactId>
-			<version>0.12.0</version>
+			<version>${hive.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.hive</groupId>
 			<artifactId>hive-service</artifactId>
-			<version>0.12.0</version>
+			<version>${hive.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject</groupId>
