@@ -1,28 +1,22 @@
 package pl.agh.edu.iosr.logs.analyzer;
 
-import java.sql.SQLException;
+import pl.agh.edu.iosr.logs.analyzer.dao.AnalysisDao;
 
 import com.google.inject.Inject;
-
-import pl.agh.edu.iosr.logs.analyzer.jdbc.HiveJdbcClient;
 
 /**
  * Analyzes logs from Hive.
  */
 public class LogsAnalyzer {
-	private HiveJdbcClient hiveJdbcClient;
+	private AnalysisDao analysisDao;
 
 	@Inject
-	public LogsAnalyzer(HiveJdbcClient hiveJdbcClient) {
-		this.hiveJdbcClient = hiveJdbcClient;
+	public LogsAnalyzer(AnalysisDao analysisDao) {
+		this.analysisDao = analysisDao;
 	}
 
 	public void analyze() {
 		System.out.println("Hello Analyze");
-		try {
-			hiveJdbcClient.test();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
+		analysisDao.getLogLevelSum();
 	}
 }
