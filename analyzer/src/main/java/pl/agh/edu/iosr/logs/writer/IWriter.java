@@ -1,4 +1,4 @@
-package pl.agh.edu.iosr.logs.writer.hdfs;
+package pl.agh.edu.iosr.logs.writer;
 
 import java.io.IOException;
 

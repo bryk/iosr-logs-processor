@@ -6,6 +6,8 @@ import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 
+import pl.agh.edu.iosr.logs.writer.IWriter;
+
 
 public class HDFSWriter implements IWriter {
 
