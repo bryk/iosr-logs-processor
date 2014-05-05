@@ -20,7 +20,7 @@ public class HiveJdbcClient {
 		}
 		try {
 			connection = DriverManager.getConnection(
-					"jdbc:hive2://localhost.localdomain:10000/default", "", "");
+					"jdbc:hive2://localhost.localdomain:10000", "", "");
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

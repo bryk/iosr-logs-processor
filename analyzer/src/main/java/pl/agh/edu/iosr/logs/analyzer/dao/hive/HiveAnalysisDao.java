@@ -9,15 +9,15 @@ import pl.agh.edu.iosr.logs.analyzer.dao.AnalysisDao;
 import com.google.common.collect.ImmutableList;
 import com.google.inject.Inject;
 
-public class HiveAnalisisDao implements AnalysisDao {
+public class HiveAnalysisDao implements AnalysisDao {
 	private HiveJdbcClient jdbcClient;
 
 	@Inject
-	public HiveAnalisisDao(HiveJdbcClient jdbcClient) {
+	public HiveAnalysisDao(HiveJdbcClient jdbcClient) {
 		this.jdbcClient = jdbcClient;
 		ResultSet res = this.jdbcClient.executeSelect("show tables");
 		try {
-			if (res.next()) {
+			while (res.next()) {
 				System.out.println(res.getString(1));
 			}
 		} catch (SQLException e) {
