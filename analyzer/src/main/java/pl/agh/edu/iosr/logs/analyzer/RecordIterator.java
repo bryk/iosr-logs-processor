@@ -32,7 +32,8 @@ public class RecordIterator extends AbstractIterator<ImmutableList<Object>> impl
 						builder.add(result.getString(i));
 						break;
 					case java.sql.Types.INTEGER:
-						builder.add(result.getInt(i));
+					case java.sql.Types.BIGINT:
+						builder.add(result.getLong(i));
 						break;
 					default:
 						throw new RuntimeException("Illegal SQL type:" + type);

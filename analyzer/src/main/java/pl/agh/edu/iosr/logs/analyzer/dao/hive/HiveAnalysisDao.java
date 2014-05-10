@@ -25,20 +25,24 @@ public class HiveAnalysisDao implements AnalysisDao {
 	@Override
 	public RecordIterator getLogLevelByHour() {
 		String q = String
-				.format("SELECT HOUR(timestamp_millis) AS hr, level FROM %s GROUP BY HOUR(timestamp_millis), level order by hr, level",
+				.format("SELECT HOUR(timestamp_millis) AS hr, level, COUNT(level) FROM %s GROUP BY HOUR(timestamp_millis), level order by hr, level",
 						TABLE_NAME);
 		return new RecordIterator(this.jdbcClient.executeSelect(q));
 	}
 
 	@Override
 	public RecordIterator getLogLevelByDay() {
-		// TODO Auto-generated method stub
-		return null;
+		String q = String
+				.format("SELECT DAY(timestamp_millis) AS logday, level, COUNT(level) FROM %s GROUP BY DAY(timestamp_millis), level order by logday, level",
+						TABLE_NAME);
+		return new RecordIterator(this.jdbcClient.executeSelect(q));
 	}
 
 	@Override
-	public RecordIterator getLogLevelByMinute() {
-		// TODO Auto-generated method stub
-		return null;
+	public RecordIterator getLogLevelByDate() {
+		String q = String
+				.format("SELECT DATE(timestamp_millis) AS logdate, level, COUNT(level) FROM %s GROUP BY DATE(timestamp_millis), level order by logdate, level",
+						TABLE_NAME);
+		return new RecordIterator(this.jdbcClient.executeSelect(q));
 	}
 }

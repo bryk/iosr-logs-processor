@@ -12,5 +12,5 @@ public interface AnalysisDao {
 
 	RecordIterator getLogLevelByDay();
 
-	RecordIterator getLogLevelByMinute();
+	RecordIterator getLogLevelByDate();
 }
