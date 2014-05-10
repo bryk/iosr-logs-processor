@@ -7,5 +7,10 @@ echo "Rebuilding..."
   cd ../generator;
   mvn clean package;
 )
+(
+  cd `dirname $0`;
+  cd ../analyzer;
+  mvn clean package;
+)
 echo "Done..."
 
