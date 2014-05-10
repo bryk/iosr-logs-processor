@@ -20,7 +20,8 @@ public class HiveJdbcClient {
 		}
 		try {
 			connection = DriverManager.getConnection(
-					"jdbc:hive2://localhost.localdomain:10000", "", "");
+					"jdbc:hive2://localhost.localdomain:10000", "cloudera",
+					"cloudera");
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

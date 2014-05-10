@@ -16,7 +16,10 @@ public class LogsAnalyzer {
 	}
 
 	public void analyze() {
-		System.out.println("Hello Analyze");
-		analysisDao.getLogLevelSum();
+		try (RecordIterator iter = analysisDao.getLogLevelByHour()) {
+			while (iter.hasNext()) {
+				System.out.println(iter.next());
+			}
+		}
 	}
 }

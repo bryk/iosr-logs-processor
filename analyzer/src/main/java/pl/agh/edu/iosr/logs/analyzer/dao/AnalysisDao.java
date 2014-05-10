@@ -1,18 +1,16 @@
 package pl.agh.edu.iosr.logs.analyzer.dao;
 
-import pl.agh.edu.iosr.logs.analyzer.LogLevelAggregation;
-
-import com.google.common.collect.ImmutableList;
+import pl.agh.edu.iosr.logs.analyzer.RecordIterator;
 
 /**
  * An interface used for getting analysis data from data warehouses.
  */
 public interface AnalysisDao {
-	ImmutableList<LogLevelAggregation> getLogLevelSum();
+	RecordIterator getLogLevelSum();
 
-	ImmutableList<LogLevelAggregation> getLogLevelByHour();
+	RecordIterator getLogLevelByHour();
 
-	ImmutableList<LogLevelAggregation> getLogLevelByDay();
+	RecordIterator getLogLevelByDay();
 
-	ImmutableList<LogLevelAggregation> getLogLevelByMinute();
+	RecordIterator getLogLevelByMinute();
 }
