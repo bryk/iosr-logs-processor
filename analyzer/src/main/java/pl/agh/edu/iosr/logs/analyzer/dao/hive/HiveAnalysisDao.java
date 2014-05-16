@@ -7,8 +7,8 @@ import com.google.inject.Inject;
 
 public class HiveAnalysisDao implements AnalysisDao {
 	private HiveJdbcClient jdbcClient;
-	
-	private final String tableName = "iosr";
+
+	private String tableName = "iosr";
 
 	@Inject
 	public HiveAnalysisDao(HiveJdbcClient jdbcClient) {
@@ -16,7 +16,6 @@ public class HiveAnalysisDao implements AnalysisDao {
 
 	}
 
-	@Override
 	public RecordIterator getLogLevelSum() {
 		// TODO Auto-generated method stub
 		return null;
@@ -44,5 +43,10 @@ public class HiveAnalysisDao implements AnalysisDao {
 				.format("SELECT DATE(timestamp_millis) AS logdate, level, COUNT(level) FROM %s GROUP BY DATE(timestamp_millis), level order by logdate, level",
 						tableName);
 		return new RecordIterator(this.jdbcClient.executeSelect(q));
+	}
+
+	@Override
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
 	}
 }

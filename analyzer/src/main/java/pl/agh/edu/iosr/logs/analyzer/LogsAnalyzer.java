@@ -63,4 +63,8 @@ public class LogsAnalyzer {
 		}
 		logger.info("Created image: " + fileName + ".png");
 	}
+
+	public void setTableName(String tableName) {
+		this.analysisDao.setTableName(tableName);
+	}
 }
