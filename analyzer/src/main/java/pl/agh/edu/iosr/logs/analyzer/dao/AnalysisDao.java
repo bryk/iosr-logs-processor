@@ -13,4 +13,6 @@ public interface AnalysisDao {
 	RecordIterator getLogLevelByDay();
 
 	RecordIterator getLogLevelByDate();
+
+	void setTableName(String tableName);
 }

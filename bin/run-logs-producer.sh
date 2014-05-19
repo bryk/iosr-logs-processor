@@ -3,6 +3,6 @@
 
 (
   cd "`dirname $0`/..";
-  java -jar generator/target/*-with-dependencies.jar
+  java -jar generator/target/*-with-dependencies.jar $@
 )
 
