@@ -30,12 +30,18 @@ public class LogsAnalyzer {
 	}
 
 	public void analyze() {
+		generatePlotTwoSeries(analysisDao.getLogClassOverall(), "logClass", "Log class overall",
+				"Log class", "Number of ocurrences");
+		generatePlotTwoSeries(analysisDao.getLogMessageLength(), "logLength", "Log length overall",
+				"Log message length", "Number of ocurrences");
 		generatePlot(analysisDao.getLogLevelByHour(), "logLevelByHour", "Log level by hour",
 				"Hour number", "Number of ocurrences");
 		generatePlot(analysisDao.getLogLevelByDay(), "logLevelByDay", "Log level by day",
 				"Day number", "Number of ocurrences");
-		generatePlot(analysisDao.getLogLevelByDate(), "logLevelByDat", "Log level by date", "Date",
-				"Number of ocurrences");
+		generatePlot(analysisDao.getLogLevelByDate(), "logLevelByDate", "Log level by date",
+				"Date", "Number of ocurrences");
+		generatePlot(analysisDao.getLogClassByDay(), "logClassByDay", "Log class by day",
+				"Day number", "Number of ocurrences");
 	}
 
 	public void generatePlot(RecordIterator iter, String fileName, String title, String xLegend,
@@ -52,7 +58,32 @@ public class LogsAnalyzer {
 		}
 		JFreeChart chart = ChartFactory.createBarChart(title, xLegend, yLegend, data,
 				PlotOrientation.VERTICAL, true, true, true);
-		int width = numRows * 40;
+		int width = numRows * 60;
+		BufferedImage img = chart.createBufferedImage(width, 600);
+
+		File outputfile = new File(fileName + ".png");
+		try {
+			ImageIO.write(img, "png", outputfile);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		logger.info("Created image: " + fileName + ".png");
+	}
+
+	public void generatePlotTwoSeries(RecordIterator iter, String fileName, String title,
+			String xLegend, String yLegend) {
+		DefaultCategoryDataset data = new DefaultCategoryDataset();
+		int numRows = 0;
+		try (RecordIterator iterLocal = iter) {
+			while (iterLocal.hasNext()) {
+				numRows += 1;
+				ImmutableList<Object> row = iterLocal.next();
+				data.addValue(((Long) row.get(1)).doubleValue(), "Number of occurences", row.get(0).toString());
+			}
+		}
+		JFreeChart chart = ChartFactory.createBarChart(title, xLegend, yLegend, data,
+				PlotOrientation.VERTICAL, true, true, true);
+		int width = numRows * 60;
 		BufferedImage img = chart.createBufferedImage(width, 600);
 
 		File outputfile = new File(fileName + ".png");

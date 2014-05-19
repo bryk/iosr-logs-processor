@@ -13,6 +13,12 @@ public interface AnalysisDao {
 	RecordIterator getLogLevelByDay();
 
 	RecordIterator getLogLevelByDate();
+	
+	RecordIterator getLogClassByDay();
 
 	void setTableName(String tableName);
+
+	RecordIterator getLogClassOverall();
+
+	RecordIterator getLogMessageLength();
 }

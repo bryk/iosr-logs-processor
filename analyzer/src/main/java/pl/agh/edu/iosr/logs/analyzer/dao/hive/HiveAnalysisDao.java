@@ -24,7 +24,7 @@ public class HiveAnalysisDao implements AnalysisDao {
 	@Override
 	public RecordIterator getLogLevelByHour() {
 		String q = String
-				.format("SELECT HOUR(timestamp_millis) AS hr, level, COUNT(level) FROM %s GROUP BY HOUR(timestamp_millis), level order by hr, level",
+				.format("SELECT HOUR(timestamp_millis) AS hr, level, COUNT(level) FROM %s GROUP BY HOUR(timestamp_millis), level ORDER BY hr, level",
 						tableName);
 		return new RecordIterator(this.jdbcClient.executeSelect(q));
 	}
@@ -32,7 +32,7 @@ public class HiveAnalysisDao implements AnalysisDao {
 	@Override
 	public RecordIterator getLogLevelByDay() {
 		String q = String
-				.format("SELECT DAY(timestamp_millis) AS logday, level, COUNT(level) FROM %s GROUP BY DAY(timestamp_millis), level order by logday, level",
+				.format("SELECT DAY(timestamp_millis) AS logday, level, COUNT(level) FROM %s GROUP BY DAY(timestamp_millis), level ORDER BY logday, level",
 						tableName);
 		return new RecordIterator(this.jdbcClient.executeSelect(q));
 	}
@@ -40,7 +40,31 @@ public class HiveAnalysisDao implements AnalysisDao {
 	@Override
 	public RecordIterator getLogLevelByDate() {
 		String q = String
-				.format("SELECT DATE(timestamp_millis) AS logdate, level, COUNT(level) FROM %s GROUP BY DATE(timestamp_millis), level order by logdate, level",
+				.format("SELECT DATE(timestamp_millis) AS logdate, level, COUNT(level) FROM %s GROUP BY DATE(timestamp_millis), level ORDER BY logdate, level",
+						tableName);
+		return new RecordIterator(this.jdbcClient.executeSelect(q));
+	}
+
+	@Override
+	public RecordIterator getLogClassByDay() {
+		String q = String
+				.format("SELECT DAY(timestamp_millis) AS logday, class, COUNT(class) FROM %s GROUP BY DAY(timestamp_millis), class ORDER BY logday, class",
+						tableName);
+		return new RecordIterator(this.jdbcClient.executeSelect(q));
+	}
+
+	@Override
+	public RecordIterator getLogClassOverall() {
+		String q = String.format(
+				"SELECT class, COUNT(class) FROM %s GROUP BY class ORDER BY class", tableName);
+		return new RecordIterator(this.jdbcClient.executeSelect(q));
+	}
+
+	@Override
+	public RecordIterator getLogMessageLength() {
+		String q = String
+				.format("SELECT IF(message IS NULL, -1, LENGTH(message)) AS len, COUNT(IF(message IS NULL, -1, LENGTH(message))) "
+						+ "AS cnt FROM %s GROUP BY IF(message IS NULL, -1, LENGTH(message)) ORDER BY len",
 						tableName);
 		return new RecordIterator(this.jdbcClient.executeSelect(q));
 	}
