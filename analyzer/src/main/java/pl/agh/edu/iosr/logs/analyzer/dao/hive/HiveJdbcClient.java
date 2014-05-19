@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 public class HiveJdbcClient {
 	private static final String DRIVER_NAME = "org.apache.hive.jdbc.HiveDriver";
@@ -15,7 +16,7 @@ public class HiveJdbcClient {
 	private Logger logger = Logger.getLogger(HiveJdbcClient.class);
 
 	@Inject
-	public HiveJdbcClient() {
+	public HiveJdbcClient(@Named("HiveUser") String user, @Named("HivePassword") String password) {
 		try {
 			Class.forName(DRIVER_NAME);
 		} catch (ClassNotFoundException e) {
@@ -23,7 +24,7 @@ public class HiveJdbcClient {
 		}
 		try {
 			connection = DriverManager.getConnection("jdbc:hive2://localhost.localdomain:10000",
-					"cloudera", "cloudera");
+					user, password);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
