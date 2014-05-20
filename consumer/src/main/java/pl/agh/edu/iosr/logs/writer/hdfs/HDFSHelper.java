@@ -13,8 +13,11 @@ public class HDFSHelper {
 	private FileSystem hdfs;
 	
 	public HDFSHelper(Configuration conf) throws IOException, URISyntaxException {
+		String fs = System.getProperty("fs.defaultFS", "hdfs://localhost:8020");
+		String fileSize = System.getProperty("dfs.blocksize", "15000");
+		System.setProperty("dfs.blocksize", fileSize);
 		config = conf;
-		hdfs = FileSystem.get( new URI("hdfs://localhost:8020"), config);
+		hdfs = FileSystem.get( new URI(fs), config);
 	}
 
 	public FileSystem getHdfs() {
