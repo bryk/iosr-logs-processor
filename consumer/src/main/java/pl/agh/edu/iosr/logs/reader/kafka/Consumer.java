@@ -37,11 +37,7 @@ public class Consumer implements Runnable {
 			} else {
 				MessageAndMetadata<byte[], byte[]> message = it.next();
 				String msg = "";
-				try {
-					msg = new String(message.message(), "ASCII") + "\n";
-				} catch (UnsupportedEncodingException e1) {
-					System.out.println(e1);
-				}
+				msg = new String(message.message()) + "\n";
 //				System.out.println(new String(message.message()));
 				try {
 					writer.write(msg);
