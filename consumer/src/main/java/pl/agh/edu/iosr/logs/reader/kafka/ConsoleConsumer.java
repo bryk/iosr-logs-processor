@@ -1,7 +1,9 @@
 package pl.agh.edu.iosr.logs.reader.kafka;
 
+import java.io.CharArrayWriter;
 
-public class ConsumerConsoleTest {
+
+public class ConsoleConsumer {
 	
 	private static String topic = "iosr";
 	
@@ -15,14 +17,15 @@ public class ConsumerConsoleTest {
 
 	public static void main(String[] args) throws InterruptedException {
 		KafkaHelper kh = new KafkaHelper(topic);
-		Thread thread = new Thread(new Consumer(kh.getStreams().get(0), 0, System.out));
+		CharArrayWriter writer = new CharArrayWriter();
+		Thread thread = new Thread(new Consumer(kh.getStreams().get(0), 0, writer));
 		thread.start();
-
 		try {
-			Thread.sleep(10000);
+			Thread.sleep(5000);
 		} catch (InterruptedException ie) {
 
 		}
+		System.out.println(writer.toString());
 		shutdown(kh, thread);
 
 	}
