@@ -14,16 +14,18 @@ import com.google.inject.Injector;
  */
 public class Analyzer {
 	private static final String DEFAULT_TABLE_NAME = "iosr";
-	private static final String DEFAULT_USER = "cloudera";
-	private static final String DEFAULT_PASSWORD = "cloudera";
+	private static final String DEFAULT_USER = null;
+	private static final String DEFAULT_PASSWORD = null;
 
 	public static void main(String[] args) {
 		CommandLineParser parser = new PosixParser();
 		Options options = new Options();
 		options.addOption("t", "table-name", true, "Hive table name, defaults to "
 				+ DEFAULT_TABLE_NAME);
-		options.addOption("u", "username", true, "Hive user name, defaults to " + DEFAULT_USER);
-		options.addOption("p", "password", true, "Hive password, defaults to " + DEFAULT_PASSWORD);
+		options.addOption("u", "username", true, "Required: Hive user name, defaults to "
+				+ DEFAULT_USER);
+		options.addOption("p", "password", true, "Required: Hive password, defaults to "
+				+ DEFAULT_PASSWORD);
 		options.addOption("h", "help", false, "Show this help");
 
 		String tableName = DEFAULT_TABLE_NAME;
@@ -37,15 +39,17 @@ public class Analyzer {
 			}
 			if (line.hasOption("username")) {
 				user = line.getOptionValue("username");
+			} else {
+				showHelp(options);
 			}
 			if (line.hasOption("password")) {
 				password = line.getOptionValue("password");
+			} else {
+				showHelp(options);
 			}
 
 			if (line.hasOption("help")) {
-				HelpFormatter formatter = new HelpFormatter();
-				formatter.printHelp(Analyzer.class.getCanonicalName(), options);
-				System.exit(0);
+				showHelp(options);
 			}
 		} catch (org.apache.commons.cli.ParseException e) {
 			throw new RuntimeException(e);
@@ -56,5 +60,11 @@ public class Analyzer {
 		LogsAnalyzer analyzer = injector.getInstance(LogsAnalyzer.class);
 		analyzer.setTableName(tableName);
 		analyzer.analyze();
+	}
+
+	private static void showHelp(Options options) {
+		HelpFormatter formatter = new HelpFormatter();
+		formatter.printHelp(Analyzer.class.getCanonicalName(), options);
+		System.exit(0);
 	}
 }
