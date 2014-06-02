@@ -2,7 +2,6 @@ package pl.agh.edu.iosr.logs.reader.kafka;
 
 import java.io.CharArrayWriter;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 import kafka.consumer.ConsumerIterator;
 import kafka.consumer.KafkaStream;
@@ -37,6 +36,7 @@ public class Consumer implements Runnable {
 			} else {
 				MessageAndMetadata<byte[], byte[]> message = it.next();
 				String msg = "";
+				//System.out.println(new String(message.key()));
 				msg = new String(message.message()) + "\n";
 //				System.out.println(new String(message.message()));
 				try {
