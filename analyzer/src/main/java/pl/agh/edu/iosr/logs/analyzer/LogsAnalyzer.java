@@ -30,6 +30,7 @@ public class LogsAnalyzer {
 	}
 
 	public void analyze() {
+		logger.info("Analysis started");
 		generatePlotTwoSeries(analysisDao.getLogClassOverall(), "logClass", "Log class overall",
 				"Log class", "Number of ocurrences");
 		generatePlotTwoSeries(analysisDao.getLogMessageLength(), "logLength", "Log length overall",
@@ -42,10 +43,12 @@ public class LogsAnalyzer {
 				"Date", "Number of ocurrences");
 		generatePlot(analysisDao.getLogClassByDay(), "logClassByDay", "Log class by day",
 				"Day number", "Number of ocurrences");
+		logger.info("Analysis finished");
 	}
 
 	public void generatePlot(RecordIterator iter, String fileName, String title, String xLegend,
 			String yLegend) {
+		logger.info("generatePlot:" + fileName + ":" + title);
 		DefaultCategoryDataset data = new DefaultCategoryDataset();
 		int numRows = 0;
 		try (RecordIterator iterLocal = iter) {
@@ -72,6 +75,7 @@ public class LogsAnalyzer {
 
 	public void generatePlotTwoSeries(RecordIterator iter, String fileName, String title,
 			String xLegend, String yLegend) {
+		logger.info("generatePlotTwoSeries:" + fileName + ":" + title);
 		DefaultCategoryDataset data = new DefaultCategoryDataset();
 		int numRows = 0;
 		try (RecordIterator iterLocal = iter) {
