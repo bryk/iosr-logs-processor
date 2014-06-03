@@ -12,5 +12,10 @@ echo "Rebuilding..."
   cd ../analyzer;
   mvn clean package;
 )
+(
+  cd `dirname $0`;
+  cd ../consumer;
+  mvn clean package;
+)
 echo "Done..."
 
