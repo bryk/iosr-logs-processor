@@ -35,10 +35,8 @@ public class Consumer implements Runnable {
 				break;
 			} else {
 				MessageAndMetadata<byte[], byte[]> message = it.next();
-				String msg = "";
-				//System.out.println(new String(message.key()));
-				msg = new String(message.message()) + "\n";
-//				System.out.println(new String(message.message()));
+				String msg = new String(message.message());
+				if (msg.equals("")) continue;
 				try {
 					writer.write(msg);
 				} catch (IOException e) {
