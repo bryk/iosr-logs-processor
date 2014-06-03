@@ -17,6 +17,8 @@ public class HDFSHelper {
 		String fileSize = System.getProperty("dfs.blocksize", "15000");
 		System.setProperty("dfs.blocksize", fileSize);
 		config = conf;
+		config.set("fs.hdfs.impl", org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());
+		config.set("fs.file.impl", org.apache.hadoop.fs.LocalFileSystem.class.getName());
 		hdfs = FileSystem.get( new URI(fs), config);
 	}
 
